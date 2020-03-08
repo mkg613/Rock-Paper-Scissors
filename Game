@@ -1,49 +1,85 @@
-import random 
+import random
 
 
 def get_input():
-  move = input('Type "ROCK", "PAPER", or "SCISSORS" to perform a move. Type "Q" to quit.\n')
-  return move
+    move = input('Type "ROCK", "PAPER", or "SCISSORS" to perform a move. Type "Q" to quit.\n')
+    return move
 
 
 def get_computer_move():
-  move = random.choice(["ROCK", "PAPER", "SCISSORS"])
-  print("The computer choose", move.lower() + ".")
-  return move
-  
+    list_of_moves = ["ROCK", "PAPER", "SCISSORS"]
+    move = random.choice(list_of_moves)
+    return move
 
-def _compare_move(move_1, move_2): # tie
-  if (move_1 == "ROCK" and move_2 == "PAPER") or (move_1 == "PAPER" and move_2 == "SCISSORS") or (move_1 == "SCISSORS" and move_2 == "ROCK"):
-    return move_2
-  elif (move_2 == "ROCK" and move_1 == "PAPER") or (move_2 == "PAPER" and move_1 == "SCISSORS") or (move_2 == "SCISSORS" and move_1 == "ROCK"):
-    return move_1
-  else:
-      return None
+def print_display(move_1, move_2):
+    print("\nPLAYER ONE:\n")
+    if move_1.upper() == "ROCK":
+        print_rock()
+    elif move_1.upper() == "PAPER":
+        print_paper()
+    elif move_1.upper() == "SCISSORS":
+        print_scissors()
+
+    print("\nPLAYER TWO:\n")
+    if move_2.upper() == "ROCK":
+        print_rock()
+    elif move_2.upper() == "PAPER":
+        print_paper()
+    elif move_2.upper() == "SCISSORS":
+        print_scissors()
+
+
+def print_rock():
+    print("    _______\n---'   ____)\n      (_____)\n      (_____)\n      (____)\n---.__(___)")
+
+
+def print_paper():
+    print("    _______\n---'   ____)____\n          ______)\n          _______)\n         _______)\n---.__________)")
+
+
+def print_scissors():
+    print("    _______\n---'   ____)____\n          ______)\n       __________)\n      (____)\n---.__(___)")
+
+
+def _compare_move(move_1, move_2):  # tie
+    if (move_1 == "ROCK" and move_2 == "PAPER") or (move_1 == "PAPER" and move_2 == "SCISSORS") or (
+            move_1 == "SCISSORS" and move_2 == "ROCK"):
+        return move_2
+    elif (move_2 == "ROCK" and move_1 == "PAPER") or (move_2 == "PAPER" and move_1 == "SCISSORS") or (
+            move_2 == "SCISSORS" and move_1 == "ROCK"):
+        return move_1
+    else:
+        return None
+
 
 def get_winner(move_1, move_2):
     if _compare_move(move_1, move_2) == move_1:
-      print("Player 1 wins!")
+        print("\nPLAYER ONE WINS.")
     elif _compare_move(move_1, move_2) == move_2:
-      print("Player 2 wins!")
+        print("\nPLAYER TWO WINS.")
     else:
-      print("It's a tie. Both players win!")
+        print("\nBOTH PLAYERS WIN.")
 
 
 def run():
-  game_type = input('Type "COMPUTER" to play with the computer. Type "FRIEND" to playe with a friend. Type "Q" to quit.\n')
-  
-  if game_type.upper() == "FRIEND": 
-    move1 = get_input()
-    move2 = get_input()
-    get_winner(move1, move2)
-    
-  elif game_type.upper() == "COMPUTER":
-    move1 = get_input()
-    move2 = get_computer_move()
-    get_winner(move1, move2)
-    
-  else:
-      quit()
+    game_type = input(
+        'Type "COMPUTER" to play with the computer. Type "FRIEND" to playe with a friend. Type "Q" to quit.\n')
+
+    if game_type.upper() == "FRIEND":
+        move1 = get_input()
+        move2 = get_input()
+        print_display(move1, move2)
+        get_winner(move1, move2)
+
+    elif game_type.upper() == "COMPUTER":
+        move1 = get_input()
+        move2 = get_computer_move()
+        print_display(move1, move2)
+        get_winner(move1, move2)
+
+    else:
+        quit()
+
 
 if __name__ == "__main__":
-  run()
+    run()
